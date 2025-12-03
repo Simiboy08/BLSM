@@ -46,7 +46,7 @@ class BLSMApp:
             json.dump({'mods_folder': self.mods_folder}, f, indent=2)
 
     def build_ui(self):
-        # Left frame: profiles
+        
         self.frame_left = ctk.CTkFrame(self.root)
         self.frame_left.pack(side='left', fill='y', padx=10, pady=10)
 
@@ -58,10 +58,10 @@ class BLSMApp:
         ctk.CTkButton(self.frame_left, text="New", command=self.new_profile).pack(fill='x', pady=2)
         ctk.CTkButton(self.frame_left, text="Rename", command=self.rename_profile).pack(fill='x', pady=2)
         ctk.CTkButton(self.frame_left, text="Delete", command=self.delete_profile).pack(fill='x', pady=2)
-        # NEW BUTTON: Create profile from current mods folder
+        
         ctk.CTkButton(self.frame_left, text="Create Profile from Mods Folder", command=self.create_profile_from_mods).pack(fill='x', pady=2)
 
-        # Middle frame: profile contents
+      
         self.frame_mid = ctk.CTkFrame(self.root)
         self.frame_mid.pack(side='left', fill='both', expand=True, padx=10, pady=10)
 
@@ -73,7 +73,7 @@ class BLSMApp:
         ctk.CTkButton(self.frame_mid, text="Remove Selected", command=self.remove_from_profile).pack(fill='x', pady=2)
         ctk.CTkButton(self.frame_mid, text="Export as ZIP", command=self.export_profile).pack(fill='x', pady=2)
 
-        # Right frame: mods folder
+        
         self.frame_right = ctk.CTkFrame(self.root)
         self.frame_right.pack(side='right', fill='y', padx=10, pady=10)
 
@@ -88,7 +88,7 @@ class BLSMApp:
         ctk.CTkButton(self.frame_right, text="Activate Profile", command=self.confirm_activate).pack(fill='x', pady=10)
         ctk.CTkButton(self.frame_right, text="Unload Mods", command=self.confirm_unload).pack(fill='x')
 
-    # ---------------- Profiles ----------------
+    
     def refresh_profiles(self):
         self.list_profiles.delete(0,'end')
         for name in sorted(os.listdir(PROFILES_DIR)):
@@ -130,7 +130,7 @@ class BLSMApp:
         shutil.rmtree(os.path.join(PROFILES_DIR,prof))
         self.refresh_profiles()
 
-    # ---------------- NEW: Create profile from current mods folder ----------------
+    
     def create_profile_from_mods(self):
         if not self.mods_folder or not os.path.exists(self.mods_folder):
             messagebox.showerror("Error","Mods folder not set or does not exist")
@@ -147,7 +147,7 @@ class BLSMApp:
         self.refresh_profiles()
         messagebox.showinfo("BLSM","Profile created from current mods folder")
 
-    # ---------------- Profile Contents ----------------
+    
     def add_to_profile(self):
         prof = self.selected_profile()
         if not prof: return
@@ -183,7 +183,7 @@ class BLSMApp:
                 for f in files:
                     zf.write(os.path.join(root,f), os.path.relpath(os.path.join(root,f),src))
 
-    # ---------------- Mods Folder ----------------
+    
     def select_mods_folder(self):
         folder = filedialog.askdirectory()
         if folder:
@@ -204,7 +204,7 @@ class BLSMApp:
         else:
             messagebox.showinfo("Auto-Detect","Mods folder not found. Select manually.")
 
-    # ---------------- Confirm Actions ----------------
+    
     def confirm_activate(self):
         if not self.selected_profile(): return
         if not self.mods_folder: return
@@ -217,7 +217,7 @@ class BLSMApp:
             self.clear_folder(self.mods_folder)
             messagebox.showinfo("BLSM","Mods folder cleared")
 
-    # ---------------- Core Actions ----------------
+    
     def clear_folder(self, folder):
         for item in os.listdir(folder):
             p = os.path.join(folder,item)
@@ -236,5 +236,6 @@ class BLSMApp:
         messagebox.showinfo("BLSM","Profile activated")
 
 if __name__ == '__main__':
-    # Entry point: ensures it starts with double-click
+   
     BLSMApp()
+
