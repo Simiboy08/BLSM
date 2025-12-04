@@ -1,4 +1,4 @@
-BLSM Mod Manager - Button Descriptions
+BLSM Manager - Button Descriptions (BoneLabSimpleMod) manager
 
 Left Frame (Profiles):
 
